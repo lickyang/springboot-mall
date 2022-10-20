@@ -1,6 +1,7 @@
 package com.lickyang.springbootmall.service.impl;
 
 import com.lickyang.springbootmall.dao.ProductDao;
+import com.lickyang.springbootmall.dto.ProductRequest;
 import com.lickyang.springbootmall.model.Product;
 import com.lickyang.springbootmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +17,10 @@ public class ProductServiceImpl implements ProductService {
     public Product getProductById(Integer productId) {
         Product product = productDao.getProductById(productId);
         return product;
+    }
+
+    @Override
+    public Integer createProduct(ProductRequest productRequest) {
+        return productDao.createProduct(productRequest);
     }
 }
