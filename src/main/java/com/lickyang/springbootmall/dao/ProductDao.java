@@ -1,6 +1,7 @@
 package com.lickyang.springbootmall.dao;
 
 import com.lickyang.springbootmall.constant.ProductCategory;
+import com.lickyang.springbootmall.dto.ProductQueryParams;
 import com.lickyang.springbootmall.dto.ProductRequest;
 import com.lickyang.springbootmall.model.Product;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 public interface ProductDao {
 
-    List<Product> getProducts(ProductCategory category, String search);
+    List<Product> getProducts(ProductQueryParams productQueryParams);
 
     Product getProductById(Integer productId);
 
