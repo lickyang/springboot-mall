@@ -1,5 +1,6 @@
 package com.lickyang.springbootmall.controller;
 
+import com.lickyang.springbootmall.dto.UserLoginRequest;
 import com.lickyang.springbootmall.dto.UserRegisterRequest;
 import com.lickyang.springbootmall.model.User;
 import com.lickyang.springbootmall.service.UserService;
@@ -19,12 +20,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/user/register")
+    @PostMapping("/users/register")
     public ResponseEntity<User> register(@RequestBody @Valid UserRegisterRequest userRegisterRequest) {
         Integer userId = userService.register(userRegisterRequest);
 
         User user = userService.getUserById(userId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    }
+
+    @PostMapping("/users/login")
+    public ResponseEntity<User> login(@RequestBody @Valid UserLoginRequest userLoginRequest) {
+        User user = userService.login(userLoginRequest);
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 }
