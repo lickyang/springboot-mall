@@ -1,6 +1,7 @@
 package com.lickyang.springbootmall.dao.impl;
 
 import com.lickyang.springbootmall.dao.OrderDao;
+import com.lickyang.springbootmall.dto.OrderQueryParams;
 import com.lickyang.springbootmall.model.OrderItem;
 import com.lickyang.springbootmall.model.OrderSummary;
 import com.lickyang.springbootmall.rowmapper.OrderItemRowMapper;
@@ -106,5 +107,58 @@ public class OrderDaoImpl implements OrderDao {
         }
 
         namedParameterJdbcTemplate.batchUpdate(sql, parameterSources);
+    }
+
+    @Override
+    public List<OrderSummary> getOrders(OrderQueryParams orderQueryParams) {
+        String sql =
+                " SELECT order_id, user_id, total_amount, created_date, last_modified_date " +
+                " FROM order_summary " +
+                " WHERE 1 = 1 ";
+
+        Map<String, Object> map = new HashMap<>();
+
+        //  查詢條件
+        sql = addFilteringSql(sql, map, orderQueryParams);
+
+        //  排序
+        sql += " ORDER BY created_date DESC ";
+
+        //  分頁
+        sql += " LIMIT :limit OFFSET :offset ";
+        map.put("limit", orderQueryParams.getLimit());
+        map.put("offset", orderQueryParams.getOffset());
+
+        System.out.println("sql : " + sql);
+
+        List<OrderSummary> orderSummaryList = namedParameterJdbcTemplate.query(sql, map, new OrderSummaryRowMapper());
+        return orderSummaryList;
+    }
+
+    @Override
+    public Integer countOrder(OrderQueryParams orderQueryParams) {
+        String sql =
+                " SELECT count(*) " +
+                " FROM order_summary " +
+                " WHERE 1 = 1 ";
+
+        Map<String, Object> map = new HashMap<>();
+
+        //  查詢條件
+        sql = addFilteringSql(sql, map, orderQueryParams);
+
+        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
+        return total;
+    }
+
+
+    private String addFilteringSql(String sql, Map<String, Object> map, OrderQueryParams orderQueryParams) {
+        //  查詢條件
+        if (orderQueryParams.getUserId() != null) {
+            sql += " AND user_id = :userId ";
+            map.put("userId", orderQueryParams.getUserId());
+        }
+
+        return sql;
     }
 }

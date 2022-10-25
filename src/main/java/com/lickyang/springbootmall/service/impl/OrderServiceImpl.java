@@ -5,6 +5,7 @@ import com.lickyang.springbootmall.dao.ProductDao;
 import com.lickyang.springbootmall.dao.UserDao;
 import com.lickyang.springbootmall.dto.BuyItem;
 import com.lickyang.springbootmall.dto.CreateOrderRequest;
+import com.lickyang.springbootmall.dto.OrderQueryParams;
 import com.lickyang.springbootmall.model.OrderItem;
 import com.lickyang.springbootmall.model.OrderSummary;
 import com.lickyang.springbootmall.model.Product;
@@ -94,5 +95,15 @@ public class OrderServiceImpl implements OrderService {
         orderDao.createOrderItems(orderId, orderItemList);
 
         return orderId;
+    }
+
+    @Override
+    public List<OrderSummary> getOrders(OrderQueryParams orderQueryParams) {
+        return orderDao.getOrders(orderQueryParams);
+    }
+
+    @Override
+    public Integer countOrder(OrderQueryParams orderQueryParams) {
+        return orderDao.countOrder(orderQueryParams);
     }
 }
