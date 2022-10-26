@@ -9,4 +9,13 @@ INSERT INTO product (product_name, category, image_url, price, stock, descriptio
 
 -- user
 -- lick@gmail.com password is 0311
-INSERT INTO user (email, password, created_date, last_modified_date) VALUES ('lick@gmail.com', 'e3a958df39563a3bc9cbc53fc79dee52', '2022-03-21 20:10:00', '2022-03-22 10:50:00')
+INSERT INTO user (email, password, created_date, last_modified_date) VALUES ('lick@gmail.com', 'e3a958df39563a3bc9cbc53fc79dee52', '2022-03-21 20:10:00', '2022-03-22 10:50:00');
+
+-- order, order_item
+INSERT INTO order_summary (user_id, total_amount, created_date, last_modified_date) VALUES (1, 500690, '2022-06-30 11:10:00', '2022-06-30 11:10:00');
+INSERT INTO order_item (order_id, product_id, quantity, amount) VALUES (1, 1, 3, 90);
+INSERT INTO order_item (order_id, product_id, quantity, amount) VALUES (1, 2, 2, 600);
+INSERT INTO order_item (order_id, product_id, quantity, amount) VALUES (1, 5, 1, 500000);
+
+INSERT INTO order_summary (user_id, total_amount, created_date, last_modified_date) VALUES (1, 100000, '2022-06-30 12:03:00', '2022-06-30 12:03:00');
+INSERT INTO order_item (order_id, product_id, quantity, amount) VALUES (2, 4, 1, 100000);
